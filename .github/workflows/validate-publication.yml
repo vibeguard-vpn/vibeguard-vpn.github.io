@@ -1,0 +1,43 @@
+name: Validate publication
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check public file allowlist and local resources
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, subprocess
+          allowed = {
+            'README.md', '_config.yml', 'index.html', 'robots.txt',
+            '.github/workflows/validate-publication.yml',
+            'assets/app.js', 'assets/styles.css', 'assets/favicon.png',
+            'assets/amneziawg-icon.png', 'assets/smproxy-icon.png',
+            'assets/vibe-guard-240.png', 'assets/vibe-guard-480.png',
+            'assets/fonts/OFL.txt', 'assets/fonts/cormorant-garamond-medium.woff',
+            'assets/fonts/cormorant-garamond-semibold-italic.woff'
+          }
+          files = set(subprocess.check_output(['git','ls-files'], text=True).splitlines())
+          assert files == allowed, f'Unexpected or missing public files: {files ^ allowed}'
+          html = pathlib.Path('index.html').read_text()
+          css = pathlib.Path('assets/styles.css').read_text()
+          resources = set(re.findall(r'assets/[A-Za-z0-9_./-]+', html))
+          for resource in resources:
+              assert pathlib.Path(resource).is_file(), resource
+          for resource in re.findall(r'url[(]([^)]*)[)]', css):
+              resource = resource.strip().strip(chr(34) + chr(39))
+              if not resource.startswith(('data:', 'http:', 'https:')):
+                  assert (pathlib.Path('assets') / resource).is_file(), resource
+          print('Public file allowlist and referenced resources passed')
+          PY
+      - name: Check JavaScript syntax
+        run: node --check assets/app.js

@@ -1,0 +1,8 @@
+exclude:
+  - docs
+  - tests
+  - README.md
+  - scripts
+  - assets/vibe-guard-original.png
+  - node_modules
+  - qa-results
