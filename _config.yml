@@ -1,8 +1,10 @@
 exclude:
+  - AGENTS.md
+  - README.md
   - docs
   - tests
-  - README.md
   - scripts
+  - publication
   - assets/vibe-guard-original.png
   - node_modules
   - qa-results
