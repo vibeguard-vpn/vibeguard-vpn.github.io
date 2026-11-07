@@ -22,6 +22,7 @@ jobs:
             '.github/workflows/validate-publication.yml',
             'assets/app.js', 'assets/styles.css', 'assets/favicon.png',
             'assets/amneziawg-icon.png', 'assets/smproxy-icon.png',
+            'assets/wg-tunnel-icon.png', 'assets/ultimate-file-manager-pro-icon.png',
             'assets/vibe-guard-240.png', 'assets/vibe-guard-480.png',
             'assets/fonts/OFL.txt', 'assets/fonts/cormorant-garamond-medium.woff',
             'assets/fonts/cormorant-garamond-semibold-italic.woff'
