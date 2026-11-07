@@ -41,3 +41,7 @@
 }
 @media(max-width:350px){.step{grid-template-columns:30px minmax(0,1fr);gap:8px}.step::before{font-size:1.7rem}.step h3{font-size:1.38rem}}
 @media(prefers-reduced-motion:reduce){.device:hover,.tv-options button:hover,.install-button:hover{transform:none}}
+
+:root[data-platform="androidtv"] .name-help-shared {
+  display: none;
+}
