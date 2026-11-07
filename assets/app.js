@@ -5,7 +5,7 @@
   const panels = [...document.querySelectorAll('[data-panel]')];
   const tvOptions = document.getElementById('tv-options');
   const currentDevice = document.getElementById('current-device');
-  const names = {android: 'android', ios: 'iPhone / iPad', windows: 'Windows', macos: 'MacBook / iMac', appletv: 'Apple TV', androidtv: 'Android TV / Google TV'};
+  const names = {android: 'android', ios: 'iPhone / iPad', windows: 'Windows', macos: 'MacBook / iMac', appletv: 'Apple TV', androidtv: 'android TV / Google TV'};
   let television = 'appletv';
   function select(platform) {
     if (!Object.hasOwn(names, platform)) return;
